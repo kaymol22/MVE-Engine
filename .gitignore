@@ -1,0 +1,62 @@
+# Ignore build directory
+/build/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Compiler-generated files
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.a
+*.so
+*.dll
+*.dylib
+
+# Ignore executable files and binary files
+*.exe
+*.out
+*.app
+
+# Ignore logs, temp files, and other generated files
+*.log
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+
+# VS Code settings (optional, add if you don’t want these in version control)
+.vscode/
+
+# macOS-specific system files
+.DS_Store
+
+# Windows-specific system files
+Thumbs.db
+Desktop.ini
+
+# Visual Studio specific (if you ever open in VS)
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.ipch/
+*.opensdf
+*.sdf
+*.tlog/
+*.user
+
+# CLion-specific (if you ever open in CLion)
+.idea/
+cmake-build-debug/
+cmake-build-release/
+
+# Ignore git-ignored and git-stashed files
+.stash
+.stashes
