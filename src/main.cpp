@@ -1,7 +1,7 @@
 #include "first_app.hpp"
 
 // std
-#include <stdexcept>
+//#include <stdexcept>
 #include <cstdlib>
 #include <iostream>
 

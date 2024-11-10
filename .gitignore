@@ -1,11 +1,15 @@
 # Ignore build directory
 /build/
+compile_commands.json
 
 # CMake generated files
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
+*.ninja
+*.ninja_deps
+*.ninja_log
 
 # Compiler-generated files
 *.obj
@@ -60,3 +64,6 @@ cmake-build-release/
 # Ignore git-ignored and git-stashed files
 .stash
 .stashes
+
+# Ignore clangd cache
+.cache/

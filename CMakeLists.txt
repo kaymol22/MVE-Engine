@@ -1,20 +1,37 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.24)
 
-project(LVE_Renderer)
+# Update project name
+project(lve_engine)
 
-set(CMAKE_CXXSTANDARD 17)
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 17)
 
-#Local paths for Vulkan, GLFW, GLM
-set(VULKAN_INCLUDE_DIR "$ENV{VULKAN}/include")
-set(VULKAN_LIBRARY "$ENV{VULKAN}/Lib/vulkan-1.lib")
+# Explicit setting of linker flags
+set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
 
-set(GLFW_INCLUDE_DIR "$ENV{GLFW_INCLUDE}")
-set(GLFW_LIBRARY "$ENV{GLFW_LIB22}/glfw3.lib")
 
-#Include directories
-include_directories(${VULKAN_INCLUDE_DIR} ${GLFW_INCLUDE_DIR} headers)
+# Paths to dependencies
+set(VULKAN_SDK "$ENV{VULKAN}")
+set(GLFW_DIR "$ENV{GLFW}")
 
+# Include directories
+include_directories(
+    ${VULKAN_SDK}/Include 
+    ${GLFW_DIR}/include 
+    headers
+)
+
+set(VULKAN_LIB "$ENV{VULKAN}/Lib/vulkan-1.lib")
+set(GLFW_LIB "C:/glfw/build/src/libglfw3.a")
+
+message("GLFW_LIB path: ${GLFW_LIB}")
+
+# Collect all .cpp files in the "src" directory
 file(GLOB_RECURSE SOURCES "src/*.cpp")
-add_executable(LVE_Renderer ${SOURCES})
 
-target_link_libraries(LVE_Renderer ${VULKAN_LIBRARY} ${GLFW_LIBRARY})
+# Create executable 
+add_executable(lve_engine ${SOURCES})
+
+# Link libraries to executable
+target_link_libraries(lve_engine mingw32 ${VULKAN_LIB} ${GLFW_LIB} opengl32)
+
