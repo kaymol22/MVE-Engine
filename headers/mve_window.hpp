@@ -5,13 +5,15 @@
 
 #include <string>
 
-namespace lve 
+namespace mve 
 {
-    class LveWindow {
+    class MveWindow {
     public:
-        LveWindow(int w, int h, std::string name);
-        ~LveWindow();
+        MveWindow(int w, int h, std::string name);
+        ~MveWindow();
         bool shouldClose() { return glfwWindowShouldClose(window); }
+
+        void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
     private:
         void initWindow();
 

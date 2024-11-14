@@ -1,6 +1,7 @@
 # Ignore build directory
 /build/
 compile_commands.json
+CMakeUserPresets.json
 
 # CMake generated files
 CMakeFiles/

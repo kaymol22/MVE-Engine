@@ -7,7 +7,7 @@
 
 int main(void) {
     
-    lve::FirstApp app{};
+    mve::FirstApp app{};
 
     try {
         app.run();

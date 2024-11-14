@@ -1,10 +1,10 @@
 #include "first_app.hpp"
 
-namespace lve {
+namespace mve {
 
     void FirstApp::run() {
 
-        while (!lveWindow.shouldClose()) {
+        while (!mveWindow.shouldClose()) {
             glfwPollEvents();
         }
     }
