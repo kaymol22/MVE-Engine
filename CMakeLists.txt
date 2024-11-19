@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 
-# Update project name
+# Update the project name
 project(mve_engine)
 
 # Include conan toolchain
