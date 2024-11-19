@@ -4,10 +4,23 @@
 
 #include <string>
 #include <vector>
+#include <vulkan/vulkan_core.h>
 
 namespace mve {
 
-    struct PipelineConfigInfo {};
+    struct PipelineConfigInfo {
+        VkViewport viewport;
+        VkRect2D scissor;
+        VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
+        VkPipelineRasterizationStateCreateInfo rasterizationInfo;
+        VkPipelineMultisampleStateCreateInfo multisampleInfo;
+        VkPipelineColorBlendAttachmentState colorBlendAttachment;
+        VkPipelineColorBlendStateCreateInfo colorBlendInfo;
+        VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+        VkPipelineLayout pipelineLayout = nullptr;
+        VkRenderPass renderPass = nullptr;
+        uint32_t subPass = 0;
+    };
     class MvePipeline {
     public:
         MvePipeline(
@@ -16,7 +29,7 @@ namespace mve {
         const std::string& fragFilepath, 
         const PipelineConfigInfo& configInfo);
 
-        ~MvePipeline() {}
+        ~MvePipeline();
 
         MvePipeline(const MvePipeline&) = delete;
         void operator=(const MvePipeline&) = delete;

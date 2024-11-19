@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.31)
 
 # Update project name
 project(mve_engine)
@@ -7,9 +7,17 @@ project(mve_engine)
 include("${CMAKE_BINARY_DIR}/Release/generators/conan_toolchain.cmake")
 set(CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/Release/generators")
 
-find_package(Vulkan REQUIRED)
-find_package(VulkanHeaders REQUIRED)
-find_package(VulkanLoader REQUIRED)
+set(VULKAN_SDK_PATH "C:/Program Files/Vulkan")
+set(VULKAN_VAL_LAYERS_PATH "${VULKAN_SDK_PATH}/Bin")
+set(VULKAN_LAYERS_LIB_PATH "${VULKAN_SDK_PATH}/Bin")
+
+include_directories(
+    ${VULKAN_SDK_PATH}/Include
+)
+link_directories(
+    ${VULKAN_LAYER_LIB_PATH}
+)
+
 find_package(glfw3 REQUIRED)
 find_package(glm REQUIRED)
 
@@ -23,8 +31,15 @@ add_executable(mve_engine ${SOURCES})
 target_link_libraries(mve_engine 
     PRIVATE 
     glfw 
-    vulkan-headers::vulkan-headers 
-    Vulkan::Loader 
-    glm::glm)
+    glm::glm
+    "${VULKAN_SDK_PATH}/Lib/vulkan-1.lib"
+)
 
-target_include_directories(mve_engine PRIVATE "${CMAKE_SOURCE_DIR}/headers")
+target_compile_definitions(mve_engine PRIVATE
+    VULKAN_LAYER_PATH=\"${VULKAN_VAL_LAYERS_PATH}/VkLayer_khronos_validation.json\"
+)
+
+target_include_directories(mve_engine PRIVATE 
+    ${VULKAN_SDK_PATH}/Include
+    "${CMAKE_SOURCE_DIR}/headers")
+

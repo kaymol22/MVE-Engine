@@ -47,7 +47,7 @@ void DestroyDebugUtilsMessengerEXT(
 }
 
 // class member functions
-MveDevice::MveDevice(MveWindow &window) : window{window} {
+MveDevice::MveDevice(MveWindow &window) : window{window}, enableValidationLayers(true) {
   // Initialise Vulkan lib & connect app to Vulkan 
   createInstance();
   // Setup of Validation Layers for debugging
