@@ -1,11 +1,58 @@
 #include "first_app.hpp"
+#include "mve_pipeline.hpp"
+#include "vulkan/vulkan_core.h"
+#include <stdexcept>
 
 namespace mve {
 
-    void FirstApp::run() {
+FirstApp::FirstApp() {
+    createPipelineLayout();
+    createPipeline();
+    createCommandBuffers();
+}
 
-        while (!mveWindow.shouldClose()) {
+FirstApp::~FirstApp() { if (pipelineLayout != VK_NULL_HANDLE) {
+    vkDestroyPipelineLayout(mveDevice.device(), pipelineLayout, nullptr); }
+}
+
+void FirstApp::run() {
+
+    while (!mveWindow.shouldClose()) {
             glfwPollEvents();
-        }
     }
+}
+
+void FirstApp::createPipelineLayout() {
+    VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
+    pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+    pipelineLayoutInfo.setLayoutCount = 0;
+    pipelineLayoutInfo.pSetLayouts = nullptr;
+    pipelineLayoutInfo.pushConstantRangeCount = 0;
+    pipelineLayoutInfo.pPushConstantRanges = nullptr;
+    if (vkCreatePipelineLayout(mveDevice.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != 
+    VK_SUCCESS) {
+        throw std::runtime_error("Failed to create pipeline layout");
+    }
+}
+
+void FirstApp::createPipeline() {
+    auto pipelineConfig =
+    MvePipeline::defaultPipelineConfigInfo(mveSwapChain.width(), mveSwapChain.height());
+    pipelineConfig.renderPass = mveSwapChain.getRenderPass();
+    pipelineConfig.pipelineLayout = pipelineLayout;
+    mvePipeline = std::make_unique<MvePipeline>(
+        mveDevice, 
+        "../shaders/simple_shader.vert.spv",
+        "../shaders/simple_shader.frag.spv",
+        pipelineConfig
+    );
+}
+
+void FirstApp::createCommandBuffers() {
+
+}
+
+void FirstApp::drawFrame() {
+
+}
 }
