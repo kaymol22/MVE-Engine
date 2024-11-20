@@ -108,7 +108,7 @@ void MveDevice::createInstance() {
   }
 
   if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
-    throw std::runtime_error("failed to create instance!");
+    throw std::runtime_error("Failed to create instance!");
   }
 
   hasGflwRequiredInstanceExtensions();
@@ -118,7 +118,7 @@ void MveDevice::pickPhysicalDevice() {
   uint32_t deviceCount = 0;
   vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
   if (deviceCount == 0) {
-    throw std::runtime_error("failed to find GPUs with Vulkan support!");
+    throw std::runtime_error("Failed to find GPUs with Vulkan support!");
   }
   std::cout << "Device count: " << deviceCount << std::endl;
   std::vector<VkPhysicalDevice> devices(deviceCount);
@@ -132,7 +132,7 @@ void MveDevice::pickPhysicalDevice() {
   }
 
   if (physicalDevice == VK_NULL_HANDLE) {
-    throw std::runtime_error("failed to find a suitable GPU!");
+    throw std::runtime_error("Failed to find a suitable GPU!");
   }
 
   vkGetPhysicalDeviceProperties(physicalDevice, &properties);
@@ -178,7 +178,7 @@ void MveDevice::createLogicalDevice() {
   }
 
   if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device_) != VK_SUCCESS) {
-    throw std::runtime_error("failed to create logical device!");
+    throw std::runtime_error("Failed to create logical device!");
   }
 
   vkGetDeviceQueue(device_, indices.graphicsFamily, 0, &graphicsQueue_);
@@ -195,7 +195,7 @@ void MveDevice::createCommandPool() {
       VK_COMMAND_POOL_CREATE_TRANSIENT_BIT | VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 
   if (vkCreateCommandPool(device_, &poolInfo, nullptr, &commandPool) != VK_SUCCESS) {
-    throw std::runtime_error("failed to create command pool!");
+    throw std::runtime_error("Failed to create command pool!");
   }
 }
 
@@ -237,7 +237,7 @@ void MveDevice::setupDebugMessenger() {
   VkDebugUtilsMessengerCreateInfoEXT createInfo;
   populateDebugMessengerCreateInfo(createInfo);
   if (CreateDebugUtilsMessengerEXT(instance, &createInfo, nullptr, &debugMessenger) != VK_SUCCESS) {
-    throw std::runtime_error("failed to set up debug messenger!");
+    throw std::runtime_error("Failed to set up debug messenger!");
   }
 }
 
@@ -393,7 +393,7 @@ VkFormat MveDevice::findSupportedFormat(
       return format;
     }
   }
-  throw std::runtime_error("failed to find supported format!");
+  throw std::runtime_error("Failed to find supported format!");
 }
 
 uint32_t MveDevice::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
@@ -406,7 +406,7 @@ uint32_t MveDevice::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags pr
     }
   }
 
-  throw std::runtime_error("failed to find suitable memory type!");
+  throw std::runtime_error("Failed to find suitable memory type!");
 }
 
 void MveDevice::createBuffer(
@@ -422,7 +422,7 @@ void MveDevice::createBuffer(
   bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
   if (vkCreateBuffer(device_, &bufferInfo, nullptr, &buffer) != VK_SUCCESS) {
-    throw std::runtime_error("failed to create vertex buffer!");
+    throw std::runtime_error("Failed to create vertex buffer!");
   }
 
   VkMemoryRequirements memRequirements;
@@ -434,7 +434,7 @@ void MveDevice::createBuffer(
   allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
   if (vkAllocateMemory(device_, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
-    throw std::runtime_error("failed to allocate vertex buffer memory!");
+    throw std::runtime_error("Failed to allocate vertex buffer memory!");
   }
 
   vkBindBufferMemory(device_, buffer, bufferMemory, 0);
@@ -517,7 +517,7 @@ void MveDevice::createImageWithInfo(
     VkImage &image,
     VkDeviceMemory &imageMemory) {
   if (vkCreateImage(device_, &imageInfo, nullptr, &image) != VK_SUCCESS) {
-    throw std::runtime_error("failed to create image!");
+    throw std::runtime_error("Failed to create image!");
   }
 
   VkMemoryRequirements memRequirements;
@@ -529,11 +529,11 @@ void MveDevice::createImageWithInfo(
   allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
   if (vkAllocateMemory(device_, &allocInfo, nullptr, &imageMemory) != VK_SUCCESS) {
-    throw std::runtime_error("failed to allocate image memory!");
+    throw std::runtime_error("Failed to allocate image memory!");
   }
 
   if (vkBindImageMemory(device_, image, imageMemory, 0) != VK_SUCCESS) {
-    throw std::runtime_error("failed to bind image memory!");
+    throw std::runtime_error("Failed to bind image memory!");
   }
 }
 

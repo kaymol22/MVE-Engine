@@ -30,7 +30,7 @@ namespace mve {
         void createCommandBuffers();
         void drawFrame();
 
-        MveWindow mveWindow{ WIDTH , HEIGHT, "Hello Vulkan!" };
+        MveWindow mveWindow{ WIDTH , HEIGHT, "Hello Triangle!" };
         MveDevice mveDevice{mveWindow};
         MveSwapChain mveSwapChain {mveDevice, mveWindow.getExtent()};
         std::unique_ptr<MvePipeline> mvePipeline; // Smart pointer for automatic memory management

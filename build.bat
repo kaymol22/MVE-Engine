@@ -14,6 +14,8 @@ if not exist %BUILD_DIR% (
     mkdir %BUILD_DIR%
 )
 
+call ./compile_shaders.bat
+
 pushd %BUILD_DIR%
 
 conan install .. --profile=default --output-folder= --build=missing

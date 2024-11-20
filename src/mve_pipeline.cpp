@@ -131,7 +131,7 @@ namespace mve {
         createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());
 
         if (vkCreateShaderModule(mveDevice.device(), &createInfo, nullptr, shaderModule) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create shader module");
+            throw std::runtime_error("Failed to create shader module");
         }
     }
 
@@ -206,6 +206,10 @@ namespace mve {
         configInfo.depthStencilInfo.back = {};  // Optional
 
         return configInfo;
+    }
+
+    void MvePipeline::bind(VkCommandBuffer commandBuffer) {
+        vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
     }
 
 }
